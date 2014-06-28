@@ -10,8 +10,6 @@ import android.database.sqlite.SQLiteQueryBuilder;
 
 public class SQLQueries {
 
-	// private static SQLiteDatabase db;
-
 	/**
 	 * có thể dùng 1 hàm cho tất cả các loại truy vấn hay không? nếu có thì thay
 	 * 2 phần FROM bằng tên_cột và " unsigned"+tên_côt trước khi đó kiểm tra xem

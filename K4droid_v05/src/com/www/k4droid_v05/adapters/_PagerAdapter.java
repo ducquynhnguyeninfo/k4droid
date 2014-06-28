@@ -1,5 +1,6 @@
-package com.www.k4droid_v05;
+package com.www.k4droid_v05.adapters;
 
+import com.www.k4droid_v05.SuperAwesomeCardFragment;
 import com.www.k4droid_v05.model.ContentFragment;
 import com.www.k4droid_v05.util.Util;
 import com.www.k4droid_v05.util._Log;

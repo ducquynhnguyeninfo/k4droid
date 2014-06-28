@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.www.k4droid_v05.R;
-import com.www.k4droid_v05._PagerAdapter;
 import com.www.k4droid_v05.adapters.TitleNavigationAdapter;
+import com.www.k4droid_v05.adapters._PagerAdapter;
 import com.www.k4droid_v05.db.DatabaseHandler;
 import com.www.k4droid_v05.db.SQLQueries;
+import com.www.k4droid_v05.interfaces.IOnTaskCompletion;
 import com.www.k4droid_v05.model.ContentFragment;
-import com.www.k4droid_v05.model.IOnTaskCompletion;
 import com.www.k4droid_v05.model.Loader;
 import com.www.k4droid_v05.model.actionbar.SpinnerNavItem;
 import com.www.k4droid_v05.model.actionbar._SearchView;
@@ -55,7 +55,7 @@ public class MainActivity extends android.support.v4.app.FragmentActivity
 	private com.www.k4droid_v05.ui.PagerSlidingTabStrip tabs;
 	private android.support.v4.view.ViewPager pager;
 
-	private com.www.k4droid_v05._PagerAdapter adapter;
+	private com.www.k4droid_v05.adapters._PagerAdapter adapter;
 	/**
 	 * List of {@link ObjSong}s.
 	 */
@@ -127,15 +127,6 @@ public class MainActivity extends android.support.v4.app.FragmentActivity
 	 * Initializes fundamental components.
 	 */
 	private void initComponents() {
-		// mQueryTextView = (SearchAutoComplete)
-		// findViewById(R.id.search_src_text);
-		// mSearchEditFrame = findViewById(R.id.search_edit_frame);
-		// mSearchPlate = findViewById(R.id.search_plate);
-		// mSubmitArea = findViewById(R.id.submit_area);
-		// mSubmitButton = findViewById(R.id.search_go_btn);
-		// mCloseButton = (ImageView) findViewById(R.id.search_close_btn);
-		// mVoiceButton = findViewById(R.id.search_voice_btn);
-		// mSearchHintIcon = (ImageView) findViewById(R.id.search_mag_icon);
 		searchByArr = getResources().getStringArray(R.array.searchby);
 
 		// Hide the action bar title
@@ -144,15 +135,21 @@ public class MainActivity extends android.support.v4.app.FragmentActivity
 		// actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
 		_Log.w("init database", "init database");
-		new RealLoader() {
+		Loader dbLoader = new RealLoader() {
 			@Override
 			public List<ObjSong> onDoInBackgound(String... params) {
 				databaseHandler = new DatabaseHandler(getBaseContext());
 				return super.onDoInBackgound(params);
 			}
-		}.execute("0", "", searchByIndexer + "");
+		};
+		dbLoader.execute("0", "", searchByIndexer + "");
 	}
 
+	/**
+	 * Helps us change the Actionbar's color easily.
+	 * 
+	 * @param newColor
+	 */
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private void changeColor(int newColor) {
 		tabs.setIndicatorColor(newColor);
@@ -164,7 +161,7 @@ public class MainActivity extends android.support.v4.app.FragmentActivity
 			LayerDrawable ld = new LayerDrawable(new Drawable[] {
 					colorDrawable, bottomDrawable });
 			if (oldBackground == null) {
-				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 					ld.setCallback(drawableCallback);
 				} else {
 					actionBar.setBackgroundDrawable(ld);
@@ -172,7 +169,7 @@ public class MainActivity extends android.support.v4.app.FragmentActivity
 			} else {
 				TransitionDrawable td = new TransitionDrawable(new Drawable[] {
 						oldBackground, ld });
-				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 					td.setCallback(drawableCallback);
 				} else {
 					actionBar.setBackgroundDrawable(td);
@@ -264,15 +261,10 @@ public class MainActivity extends android.support.v4.app.FragmentActivity
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		MenuItem itemSearch = menu.add(1, 5234, 0, "search");
-		// _SearchView searchView =
-		// (_SearchView)findViewById(R.id.menu_search);//<--- không hiểu sao cái
-		// này lại trả về null
-
 		itemSearch.setIcon(android.R.drawable.ic_menu_search);
 		itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM
 				| MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
 		_SearchView searchView = new _SearchView(this);
-		// (SearchView) menu.findItem(R.id.menu_search).getActionView();
 		searchView.setOnQueryTextListener(this);
 		searchView.setOnCloseListener(this);
 		searchView.setIconifiedByDefault(true);
@@ -282,13 +274,17 @@ public class MainActivity extends android.support.v4.app.FragmentActivity
 		 * *********************************** Spinner
 		 * ****************************
 		 */
-
 		MenuItem itemSpinner = menu.add(2, 23, 1, "Spinner");
 		itemSpinner.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		itemSpinner.setActionView(declareActionBarSpinner());
 		return true;
 	}
 
+	/**
+	 * Declares Actionbar's drop down spinner items.
+	 * 
+	 * @return A drop down spinner.
+	 */
 	private Spinner declareActionBarSpinner() {
 		Spinner spinner = new Spinner(getApplicationContext(),
 				Spinner.MODE_DROPDOWN);
@@ -335,11 +331,6 @@ public class MainActivity extends android.support.v4.app.FragmentActivity
 	@Override
 	public boolean onQueryTextChange(String newText) {
 		clue = newText;
-		// if(clue.equals("")) {
-		// hintLayout.setVisibility(View.VISIBLE);
-		// } else {
-		// hintLayout.setVisibility(View.GONE);
-		// }
 		whichTab = pager.getCurrentItem();
 		_Log.v(TAG, "tab number " + whichTab);
 		fetchData(clue);

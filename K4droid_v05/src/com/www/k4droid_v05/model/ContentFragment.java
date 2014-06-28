@@ -35,10 +35,11 @@ public class ContentFragment extends Fragment {
 	private String fragmentName = "";
 
 	private static ContentFragment sF;
-	
+
 	public ContentFragment() {
 		// TODO Auto-generated constructor stub
 	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -56,13 +57,14 @@ public class ContentFragment extends Fragment {
 	 * instance of {@link SearchingListAdapter}. Updates the data-set for the
 	 * ListView by that instance.
 	 * 
-	 * @return itself instance of {@link ContentFragment} class to the UI with current state.
+	 * @return itself instance of {@link ContentFragment} class to the UI with
+	 *         current state.
 	 */
 	public ContentFragment refresh(int tab) {
 		int itemResource;
-		if(MainActivity.searchByIndexer == 3)
+		if (MainActivity.searchByIndexer == 3)
 			itemResource = R.layout.single_row_item_id_name_lyric;
-		else 
+		else
 			itemResource = R.layout.single_row_item_id_name_author;
 		List<ObjSong> listFound = ((MainActivity) activity).getData();
 		switch (tab) {
@@ -70,9 +72,8 @@ public class ContentFragment extends Fragment {
 			_Log.v("SIZE", this.getFragmentName() + " -- "
 					+ (listFound == null ? listFound.size() : " null")
 					+ " items");
-			newAdapter = new SearchingListAdapter(getActivity(),
-					itemResource, listFound,
-					listView);
+			newAdapter = new SearchingListAdapter(getActivity(), itemResource,
+					listFound, listView);
 			listView.setAdapter(newAdapter);
 			_Log.v(TAG, listView.getCount() + "--" + listView.getChildCount());
 			break;
@@ -83,8 +84,7 @@ public class ContentFragment extends Fragment {
 			_Log.v("SIZE", this.getFragmentName() + " -- " + listFound.size()
 					+ " items");
 			favoriteAdapter = new FavoriteListAdapter(getActivity(),
-					itemResource, listFound,
-					listView);
+					itemResource, listFound, listView);
 			listView.setAdapter(favoriteAdapter);
 			_Log.v(TAG, listView.getCount() + "--" + listView.getChildCount());
 			break;
@@ -116,7 +116,8 @@ public class ContentFragment extends Fragment {
 			Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
 		_Log.v(fragmentName, "on Create View ---------------------------------");
-		inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		inflater = (LayoutInflater) activity
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View rootView = inflater.inflate(R.layout.f_timkiem, container, false);
 		listView = (IndexableListView) rootView.findViewById(android.R.id.list);
 		listView.setFastScrollEnabled(true);
@@ -125,16 +126,16 @@ public class ContentFragment extends Fragment {
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
+			public void onItemClick(AdapterView<?> arg0, View view,
+					int position, long id) {
 				_Log.v(TAG, "Item clicked at " + position);
-				Toast.makeText(getActivity(), "Stop clicking me!!!", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), "Stop clicking me!!!",
+						Toast.LENGTH_SHORT).show();
 			}
 		});
-
 		return rootView;
 	}
 
-	
 	/**
 	 * Makes a new instance of itself class {@link ContentFragment}.
 	 * 
@@ -156,8 +157,6 @@ public class ContentFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 	}
 
-	
-
 	public IndexableListView getLvWrapper() {
 		return listView;
 	}
@@ -169,7 +168,7 @@ public class ContentFragment extends Fragment {
 	}
 
 	public void setLvWrapper(IndexableListView listView) {
-		this.listView =  listView;
+		this.listView = listView;
 
 	}
 
@@ -202,11 +201,13 @@ public class ContentFragment extends Fragment {
 		_Log.v(fragmentName, "onResume");
 		super.onResume();
 	}
+
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		_Log.v(fragmentName, "onSaveInstanceState");
 	}
+
 	@Override
 	public void onViewStateRestored(Bundle savedInstanceState) {
 		_Log.v(fragmentName, "onViewStateRestored");
@@ -218,7 +219,5 @@ public class ContentFragment extends Fragment {
 		_Log.v(fragmentName, "setInitialSavedState");
 		super.setInitialSavedState(state);
 	}
-	
-	
-	
+
 }

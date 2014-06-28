@@ -67,7 +67,4 @@
                 android:textSize="17sp" />
         </LinearLayout>
     </LinearLayout>
-
- 
- 
 </FrameLayout>

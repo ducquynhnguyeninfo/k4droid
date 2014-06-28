@@ -4,19 +4,26 @@ import java.util.List;
 
 import com.www.k4droid_v05.R;
 import com.www.k4droid_v05.db.SQLQueries;
+import com.www.k4droid_v05.model.SongDetailsDialogFragment;
+import com.www.k4droid_v05.model.SongDetailsDialogFragment.OnCheckboxCallBackListener;
 import com.www.k4droid_v05.obj.ObjSong;
 import com.www.k4droid_v05.obj.ViewsHolder;
 import com.www.k4droid_v05.ui.IndexableListView;
 import com.www.k4droid_v05.util._Log;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Build;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.CheckBox;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class SearchingListAdapter extends BaseListAdapter {
@@ -24,9 +31,11 @@ public class SearchingListAdapter extends BaseListAdapter {
 	private static final String TAG = "FoundListAdapter";
 	private static Context context;
 	private int idResource;
-	private boolean[] checkBoxStateFavorite;
+	public static boolean[] checkBoxStateFavorite;
 	private List<ObjSong> listFound;
 	private IndexableListView listView;
+	private SongDetailsDialogFragment detailsDialogFragment;
+	private RelativeLayout itemContainer;
 
 	/**
 	 * @param context
@@ -103,6 +112,36 @@ public class SearchingListAdapter extends BaseListAdapter {
 			holder = (ViewsHolder) row.getTag();
 		}
 
+		itemContainer = (RelativeLayout) row.findViewById(R.id.relative);
+		final int cbPos = position;
+		itemContainer.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Bundle bundle = new Bundle(5);
+				bundle.putString(ObjSong.SONG_ID, song.getSongId());
+				bundle.putString(ObjSong.SONG_NAME, song.getSongName());
+				bundle.putString(ObjSong.SONG_AUTHOR, song.getSongAuthor());
+				bundle.putString(ObjSong.SONG_LYRIC, song.getSongLyric());
+				bundle.putInt(ObjSong.SONG_IS_FAVORITE,
+						song.getSongIsFavorite());
+				detailsDialogFragment = new SongDetailsDialogFragment();
+				detailsDialogFragment.setArguments(bundle);
+				detailsDialogFragment
+						.setOnCheckboxCallBackListener(new OnCheckboxCallBackListener() {
+
+							@Override
+							public void onCheckboxCallBackListener(View view) {
+								view.setId(cbPos);
+								_Log.e("pos at OnCheckboxCallBackListener",
+										cbPos + "");
+								SearchingListAdapter.this.onClick(view);
+							}
+						});
+				detailsDialogFragment.show(
+						((Activity) context).getFragmentManager(), "");
+			}
+		});
 		holder.textViewId.setText(song.getSongId());
 		holder.textViewName.setText(song.getSongName());
 		if (idResource == (Integer) R.layout.single_row_item_id_name_author) {
@@ -140,66 +179,78 @@ public class SearchingListAdapter extends BaseListAdapter {
 		v = (CheckBox) v;
 		final int pos = Integer.valueOf(v.getId());
 		_Log.d("onClick ", "checkBox id = " + pos);
-		final ObjSong song = listFound.get(pos);// get the song at the exact
-												// position on the list
+		ObjSong song = listFound.get(pos);// get the song at the exact
+											// position on the list
 		if (((CheckBox) v).isChecked()) {
-			checkBoxStateFavorite[pos] = true;
-
-			SQLQueries.addFavorite(Integer.valueOf(song.getSongId()));
-			Toast.makeText(
-					getContext(),
-					context.getString(R.string.addFavor1) + song.getSongName()
-							+ context.getString(R.string.addFavor2),
-					Toast.LENGTH_SHORT).show();
-			_Log.w(TAG,
-					song.getRow_Id() + " - " + song.getSongName()
-							+ context.getString(R.string.addFavor2));
+			addNewFavorite(pos, song);
 		} else {
-			new AlertDialog.Builder(getContext())
-					.setTitle(
-							context.getString(R.string.unFavor1)
-									+ song.getSongName()
-									+ context.getString(R.string.unFavor2))
-					.setPositiveButton("YES",
-							new DialogInterface.OnClickListener() {
-
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									SQLQueries.unFavorite(song.getSongId());
-									checkBoxStateFavorite[pos] = false;
-									_Log.w(TAG,
-											song.getRow_Id()
-													+ "  -----  "
-													+ song.getSongId()
-													+ " --- "
-													+ song.getSongName()
-													+ " is removed from favorite list at "
-													+ pos);
-									refreshSingleView(song, listView);
-								}
-							})
-					.setNegativeButton("NO",
-							new DialogInterface.OnClickListener() {
-
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									refreshSingleView(song, listView);
-									dialog.dismiss();
-								}
-							}).setCancelable(false).create().show();
+			askForUnfavorite(pos, song);
 		}
+
+		_Log.e("pos at onclick", pos + "");
+	}
+
+	private void askForUnfavorite(final int pos, final ObjSong song) {
+		new AlertDialog.Builder(getContext())
+				.setTitle(
+						context.getString(R.string.unFavor1)
+								+ song.getSongName()
+								+ context.getString(R.string.unFavor2))
+				.setPositiveButton("YES",
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								SQLQueries.unFavorite(song.getSongId());
+								checkBoxStateFavorite[pos] = false;
+								_Log.w(TAG,
+										song.getRow_Id()
+												+ "  -----  "
+												+ song.getSongId()
+												+ " --- "
+												+ song.getSongName()
+												+ " is removed from favorite list at "
+												+ pos);
+								refreshSingleView(song, listView, pos);
+							}
+						})
+				.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+					@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						refreshSingleView(song, listView, pos);
+						if (detailsDialogFragment != null && !(detailsDialogFragment.isDetached()))
+							detailsDialogFragment.reSetCheckboxState();
+						dialog.dismiss();
+					}
+				}).setCancelable(false).create().show();
+	}
+
+	private void addNewFavorite(final int pos, final ObjSong song) {
+		checkBoxStateFavorite[pos] = true;
+		SQLQueries.addFavorite(Integer.valueOf(song.getSongId()));
+		refreshSingleView(song, listView, pos);
+		Toast.makeText(
+				getContext(),
+				context.getString(R.string.addFavor1) + song.getSongName()
+						+ context.getString(R.string.addFavor2),
+				Toast.LENGTH_SHORT).show();
+		_Log.w(TAG,
+				song.getRow_Id() + " - " + song.getSongName()
+						+ context.getString(R.string.addFavor2));
 	}
 
 	/**
 	 * Refresh the state of the views displayed (visible) on the screen.
 	 */
-	private void refreshSingleView(ObjSong song, IndexableListView listView) {
+	private void refreshSingleView(ObjSong song, IndexableListView listView,
+			int pos) {
+		song.setSongIsFavorite(checkBoxStateFavorite[pos] == true ? 1 : 0);
 		_Log.v("dataset counting", getCount() + "");
 		if (listView == null) {
-			_Log.v("List view	", "list view is null");
-
+			_Log.v("List view ", "list view is null");
 		} else {
 			int start = listView.getFirstVisiblePosition();
 			for (int i = start, j = listView.getLastVisiblePosition(); i <= j; i++) {

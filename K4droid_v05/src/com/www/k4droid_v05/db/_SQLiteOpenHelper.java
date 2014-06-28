@@ -14,7 +14,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
-
+/**
+ * Helps us great database if it is not existed.
+ * @author DUC QUYNH
+ *
+ */
 public class _SQLiteOpenHelper extends SQLiteOpenHelper {
 
 	public static final String DATABASE_NAME = "db_k4droid";
@@ -82,6 +86,10 @@ public class _SQLiteOpenHelper extends SQLiteOpenHelper {
 		}
 	}
 
+	/**
+	 * 
+	 * @return database file's path.
+	 */
 	static String getDatabasePath() {
 
 		File filename = Environment.getExternalStorageDirectory();

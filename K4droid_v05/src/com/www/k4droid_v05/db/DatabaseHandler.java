@@ -62,7 +62,8 @@ public class DatabaseHandler {
 					_SQLiteOpenHelper.getDatabasePath()
 							+ _SQLiteOpenHelper.DATABASE_NAME, null,
 					SQLiteDatabase.CREATE_IF_NECESSARY
-							| SQLiteDatabase.ENABLE_WRITE_AHEAD_LOGGING);
+//							| SQLiteDatabase.ENABLE_WRITE_AHEAD_LOGGING
+							);
 			this.db = db;
 			if (_SQLiteOpenHelper.NEW_DB_VERSION > (_SQLiteOpenHelper.CURRENT_DB_VERSION = db
 					.getVersion())) {
@@ -96,12 +97,6 @@ public class DatabaseHandler {
 				+ _SQLiteOpenHelper.DATABASE_NAME);
 		return dbFile.exists();
 	}
-
-//	private void open() {
-//		_Log.v(TAG, "on Open()");
-//		db = sqLiteOpenHelper.getWritableDatabase();
-//		conn = db;
-//	}
 
 	public static SQLiteDatabase getDBConnection() {
 		if (conn == null)

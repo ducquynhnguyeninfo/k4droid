@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.www.k4droid_v05;
+package com.www.k4droid_v05.interfaces;
 
 /**
  * This interface is used to inform the main activity when the entry
@@ -22,5 +22,8 @@ package com.www.k4droid_v05;
  * start of a new animation before the current one has completed.
  */
 public interface OnTextFragmentAnimationEndListener {
+	/**
+	 * Performs a task when Animation ended.
+	 */
     public void onAnimationEnd();
 }

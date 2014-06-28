@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="background_tab_pressed">#6633B5E5</color>
     <color name="white">#FFF</color>
+    <color name="turquoise">#1ABC9C</color>
+    <color name="greensea">#16A085</color>
+    <color name="peterriver">#3498DB</color>
+    <color name="BELIZEHOLE">#2980B9</color>
+    <color name="AMETHYST">#9B59B6</color>
+    <color name="WISTERIA">#8E44AD</color>
+    <color name="ALIZARIN">#E74C3C</color>
+    <color name="POMEGRANATE">#C0392B</color>
+    <color name="PUMPKIN">#D35400</color>
+    <color name="CARROT">#E67E22</color>
+    <color name="timthan">#2D3E50</color>
+    <color name="middnightblue">#10447c</color>
+    <color name="darkslatblue">#415b76</color>
+
 </resources>

@@ -48,7 +48,7 @@ import java.util.Locale;
 import com.www.k4droid_v05.R;
 import com.www.k4droid_v05.util._Log;
 
-@TargetApi(Build.VERSION_CODES.CUPCAKE)
+@TargetApi(Build.VERSION_CODES.DONUT)
 public class PagerSlidingTabStrip extends HorizontalScrollView {
 
 	public interface IconTabProvider {
@@ -288,12 +288,12 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 					@Override
 					public void onGlobalLayout() {
 
-						if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+						if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 							getViewTreeObserver().removeGlobalOnLayoutListener(
 									this);
 						} else {
-							getViewTreeObserver().removeOnGlobalLayoutListener(
-									this);
+//							getViewTreeObserver().removeOnGlobalLayoutListener(
+//									this);
 						}
 
 						currentPosition = pager.getCurrentItem();
@@ -303,6 +303,11 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
 	}
 
+	/**
+	 * Add text title for a tab.
+	 * @param position
+	 * @param title
+	 */
 	private void addTextTab(final int position, String title) {
 
 		TextView tab = new TextView(getContext());

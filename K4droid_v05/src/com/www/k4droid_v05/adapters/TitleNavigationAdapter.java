@@ -15,7 +15,11 @@ import android.widget.TextView;
 import com.www.k4droid_v05.R;
 import com.www.k4droid_v05.model.actionbar.SpinnerNavItem;
 import com.www.k4droid_v05.obj.ObjSong;
-
+/**
+ * Provides dataset for the drop down spinner.
+ * @author DUC QUYNH
+ *
+ */
 public class TitleNavigationAdapter extends BaseAdapter {
 
 	private ImageView imgIcon;

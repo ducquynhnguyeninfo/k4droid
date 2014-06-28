@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- This is item's layout of drop down spinner on ActionBar -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
@@ -13,9 +16,12 @@
         android:layout_marginRight="5dp"
         android:src="@drawable/ic_launcher" />
 
-    <TextView android:id="@+id/txtTitle"
+    <TextView
+        android:id="@+id/txtTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/imgIcon"/>
+        android:layout_toRightOf="@id/imgIcon"
+        android:textColor="@color/white" />
+
 </RelativeLayout>

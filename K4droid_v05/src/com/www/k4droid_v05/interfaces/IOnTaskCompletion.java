@@ -1,7 +1,8 @@
-package com.www.k4droid_v05.model;
+package com.www.k4droid_v05.interfaces;
 
 import java.util.List;
 
+import com.www.k4droid_v05.model.Loader;
 import com.www.k4droid_v05.obj.ObjSong;
 
 /**
