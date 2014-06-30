@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relative"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_selector"
+    android:clickable="true"
+    android:orientation="horizontal"
+    android:padding="10dp" >
+
+    <TextView
+        android:id="@+id/songid"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="3dip"
+        android:background="@drawable/song_id_textview_bg"
+        android:padding="3dip"
+        android:singleLine="true"
+        android:textColor="@android:color/primary_text_light_nodisable"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/songname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/songid"
+        android:singleLine="true"
+        android:textColor="#040404"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:typeface="sans" />
+
+    <TextView
+        android:id="@+id/songlyric"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/songname"
+        android:layout_marginTop="1dip"
+        android:layout_toRightOf="@id/songid"
+        android:singleLine="true"
+        android:textColor="#343434"
+        android:textSize="10sp" />
+
+    <CheckBox
+        android:id="@+id/isfavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:button="@drawable/btn_favorite"
+        android:clickable="true"
+        android:contentDescription="@string/favorite" />
+    <!-- android:button="@drawable/btn_favorite" -->
+
+</RelativeLayout>

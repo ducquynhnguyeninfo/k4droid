@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@color/white"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center" >
+
+        <ImageView
+            android:id="@+id/album_thumbnail"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="5dp"
+            android:src="@drawable/album_thumbnail" />
+
+        <CheckBox
+            android:id="@+id/details_isfavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:button="@drawable/btn_favorite"
+            android:contentDescription="@string/favorite"
+            android:descendantFocusability="blocksDescendants"
+            android:focusable="false"
+            android:focusableInTouchMode="false" />
+
+        <TextView
+            android:id="@+id/details_songid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/album_thumbnail"
+            android:layout_alignBottom="@id/album_thumbnail"
+            android:layout_centerHorizontal="true"
+            android:background="@color/greensea"
+            android:gravity="center_horizontal"
+            android:text="55123"
+            android:textColor="@color/CARROT"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp" >
+
+        <TextView
+            android:id="@+id/details_songname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:background="@color/greensea"
+            android:gravity="center_horizontal"
+            android:paddingBottom="4dp"
+            android:paddingLeft="2dp"
+            android:paddingTop="2dp"
+            android:singleLine="false"
+            android:text="KHI TÌNH YÊU BẮT ĐẦU"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/details_songauthor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="2dp"
+            android:singleLine="true"
+            android:text="Biên Hòa"
+            android:textColor="@color/POMEGRANATE"
+            android:textSize="13sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/details_songlyric"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="2dp"
+            android:minLines="2"
+            android:singleLine="false"
+            android:text="HoaGoi nắng! Cho cơn mưa chiều nhiều hoa trắng bay, cho vai em gầy chiều.Cho cơn mưa chiều nhiều hoa trắng bay, cho vai em gầy chiều Cho cơn mưa chiều nhiều hoa trắng bay, cho vai em gầy chiều   "
+            android:textColor="@color/timthan"
+            android:textSize="12sp"
+            android:textStyle="italic" />
+    </LinearLayout>
+
+</LinearLayout>

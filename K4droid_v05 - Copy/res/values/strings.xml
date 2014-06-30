@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">K4Droid_v05</string>
+    <string name="action_settings">Settings</string>
+    <string name="menu_search">Tìm kiếm</string>
+    <string name="menu_settings">Cài đặt</string>
+    <string name="searching">Tìm kiếm</string>
+    <string name="search">Tìm kiếm</string>
+    <string name="listsongs">Danh sách</string>
+    <string name="favorite">Yêu thích</string>
+    <string name="help">Trợ giúp</string>
+    <string name="searchingfragment">searching fragment</string>
+    <string name="songfragment">song fragment</string>
+    <string name="favoritefragment">favorite fragment</string>
+
+    <string-array name="tab_title">
+        <item>Tìm kiếm</item>
+        <item>Danh sách</item>
+        <item>Yêu thích</item>
+    </string-array>
+
+    <string name="strsongname">Tên bài hát</string>
+    <string name="strsongauthor">Tác giả</string>
+    <string name="strsonglyric">Lời bài hát</string>
+    <string name="spinner_prompt">Tìm kiếm theo:</string>
+
+    <string-array name="searchby">
+        <item>Tên bài hát</item>
+        <item>Mã số</item>
+        <item>Tác giả/Ca sỹ</item>
+        <item>Lời bài hát</item>
+    </string-array>
+    <!-- The description that will show up in the search settings for this source. -->
+    <string name="settings_description">Definitions of words</string>
+    <string name="empty">KHÔNG TÌM THẤY BÀI HÁT NÀO</string>
+    <string name="hint">ẤN VÀO BIỂU TƯỢNG TÌM KIẾM ĐỂ BẮT ĐẦU TÌM KIẾM</string>
+    <string name="addFavor1">Bài hát \"</string>
+    <string name="addFavor2">\" đã được thêm vào danh sách Yêu Thích</string>
+    <string name="unFavor1">Bạn muốn xóa bài hát \"</string>
+    <string name="unFavor2">\" khỏi danh sách yêu thích?</string>
+
+    
+    
+    
+    
+    
+    <string name="photo_credits"><b>Golden Gate Sunset</b> by <b>Romain Guy</b></string>
+    <string name="address"><b>Address:</b> Golden Gate Bridge, San Francisco, CA 94129</string>
+    <string name="elevation"><b>Elevation:</b>  220\' (67 m)</string>
+    <string name="height"><b>Height:</b>  746\' (227 m)</string>
+    <string name="construction"><b>Construction started:</b>  1933</string>
+    <string name="span"><b>Longest span:</b>  4,200\' (1,280 m)</string>
+    <string name="length"><b>Total length:</b>  8,980\' (2,737 m)</string>
+    <string name="summary">"The Golden Gate Bridge is a suspension bridge spanning the Golden Gate, the opening of the San Francisco Bay into the Pacific Ocean."</string>
+    <string name="bridge">Golden Gate Bridge</string>
+    
+</resources>
